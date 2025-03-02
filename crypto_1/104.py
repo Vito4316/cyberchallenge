@@ -21,16 +21,29 @@ s = ""
 flag = ""
 
 for i in range(16):
-    s = "a" * (15 - i)
-    enc = send_enc(conn, (s + flag).encode())
+    s = "a" * (15 - len(flag))
+    enc = send_enc(conn, (s).encode())
 
     for c in printable:
         plain = s + flag + c
         print(f"trying {plain} ...")
         enc_test = send_enc(conn, plain.encode())
-        print(enc)
         print(enc_test)
         if enc_test[:32] == enc[:32]:
             print(f"New flag char found: {c}, flag={c + flag}")
-            flag = c + flag
+            flag += c
+            break
+
+for i in range(16):
+    s = "a" * (31 - len(flag))
+    enc = send_enc(conn, s.encode())
+    
+    for c in printable:
+        plain = s + flag + c
+        print(f"trying {plain} ...")
+        enc_test = send_enc(conn, plain.encode())
+        print(enc_test)
+        if enc_test[32:64] == enc[32:64]:
+            print(f"New flag char found: {c}, flag={flag + c}")
+            flag += c
             break
