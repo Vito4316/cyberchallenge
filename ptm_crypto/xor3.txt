@@ -1,0 +1,2 @@
+
+this can be solved doing the xor of the two images
