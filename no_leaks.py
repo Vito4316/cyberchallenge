@@ -3,25 +3,25 @@ import base64
 from string import printable
 
 def get_cipher(r):
-    r.sendline("{\"msg\": \"request\"}")
+    r.sendline(b'{"msg": "request"}')  # Make sure it's bytes
     cipher = r.recvline()
-    cipher = cipher[16:-2]
+    print(cipher)
+    cipher = cipher[16:-3]
+    print(cipher)
     return cipher
 
 r = connect("socket.cryptohack.org", 13370)
-
 r.recvline()
-
 cipher_number = 100
 ciphers = []
-
 for i in range(cipher_number):
     ciphers.append(get_cipher(r))
-    
-ciphers = [ base64.b64decode(i) for i in ciphers ]
 
-printable_bytes = [ord(i) for i in printable[:-8]]  # Just the integer values
+ciphers = [base64.b64decode(i) for i in ciphers]
+print(ciphers)
 
+# Use characters with ASCII values 0-127 only
+printable_bytes = [ord(i) for i in printable[:-8]]  
 
 for i in range(20):
     p = set()
@@ -31,10 +31,12 @@ for i in range(20):
     
     possible = set(printable_bytes) - p
     
-    readable_chars = [chr(b) for b in p]
-    
+    # Convert possible characters (not found in ciphertexts) back to readable form
+    readable_chars = [chr(b) for b in possible]
     readable_string = ''.join(readable_chars)
     
     print(f"Candidates for position {i}: {readable_string}")
     
-
+    # If you want to debug and see what values are in p:
+    #p_values = sorted(p)
+    #print(f"Values in ciphertexts at position {i}: {p_values}")
