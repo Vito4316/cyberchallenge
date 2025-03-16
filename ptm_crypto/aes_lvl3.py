@@ -27,12 +27,12 @@ def send_flag_request(conn, ciphertext):
     
     return response.strip(), plaintext_response.strip()
 
-
 # we need to obtain dec(k, C) ^ adm_IV = "Gimme damn flag" = P
 # we can craft M = P ^ IV_adm ^ IV
 # 
 # then, when enc with personal IV, 
-# C1 = enc(k, P ^ IV_adm ^ IV ^ IV) <- last IV is because of CBC encryption
+# C1 = enc(k, P ^ IV_adm ^ IV)
+# C1 = AES_enc(k, P ^ IV_adm ^ IV ^ IV)
 #
 # then, dec(k, C1) = 
 # AES_dec(k, C1) ^ IV_adm = 
