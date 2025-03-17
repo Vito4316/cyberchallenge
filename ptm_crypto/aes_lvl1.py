@@ -14,7 +14,7 @@ def send_enc(conn, s):
 conn = remote("130.192.5.212", 1750)
 
 print(conn.recvline())
-# n of chars to uncover
+# n of chars to uncover [estimated]
 n = 48
 
 flag = b''
