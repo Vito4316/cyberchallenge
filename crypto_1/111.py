@@ -1,6 +1,8 @@
 from pwn import *
 from binascii import hexlify, unhexlify
+from string import printable
 
+my_printable = str([chr(i) for i in range(16)]) + printable
 
 def is_padded_correctly(r, m):
     r.recvuntil(b"What do you want to decrypt (in hex)? ", drop=False)
@@ -27,7 +29,8 @@ def get_block(r, cipher):
         pad_val = block_size - i
         found = False
 
-        for guess in range(256):
+        for guess_str in my_printable:
+            guess = ord(guess_str)
             c0_modified = bytearray(c0)
 
             for j in range(i + 1, block_size):
