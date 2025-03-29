@@ -103,7 +103,6 @@ void mix_columns(std::array<std::array<uint8_t, 4>, 4> &s) {
   }
 }
 
-// Inverse MixColumns operation
 void inv_mix_columns(std::array<std::array<uint8_t, 4>, 4> &s) {
   for (int i = 0; i < 4; i++) {
     uint8_t u = xtime(xtime(s[i][0] ^ s[i][2]));
